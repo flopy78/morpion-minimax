@@ -1,6 +1,6 @@
-game = [[null,null,null],
-        [null,null,null],
-        [null,null,null]];
+game = [[null, null, null],
+        [null, null, null],
+        [null, null, null]];
 
 role = "x";
 enemy = "o";
@@ -13,7 +13,7 @@ function coupsPossibles(game) {
     for (let y = 0 ; y < 3 ; y++){
         for (let x = 0 ; x < 3 ; x++){
             if (game[y][x] == null) {
-                coups.push([x,y]);
+                coups.push([x, y]);
             }
         }
     }
@@ -56,7 +56,7 @@ function minimax(depth,start = null) {
     if (depth == 0 || coupsPossibles(game).length == 0) {
         return evaluate(game);
     }
-    joueur = ["o","x"][depth%2];
+    joueur = ["o", "x"][depth%2];
 
     if (joueur == role) {
         meilleurCoup = null;
@@ -71,7 +71,7 @@ function minimax(depth,start = null) {
 
             if (score > meilleurScore) {
                 meilleurScore = score;
-                meilleurCoup = [x,y];
+                meilleurCoup = [x, y];
             }
         }
 
@@ -79,7 +79,7 @@ function minimax(depth,start = null) {
         meilleurCoup = null;
         meilleurScore = Infinity;
 
-        for ([x,y] of coupsPossibles(game)) {
+        for ([x, y] of coupsPossibles(game)) {
             game[y][x] = joueur;
 
             score = minimax(depth - 1,start)
@@ -88,12 +88,12 @@ function minimax(depth,start = null) {
 
             if (score < meilleurScore) {
                 meilleurScore = score;
-                meilleurCoup = [x,y];
+                meilleurCoup = [x, y];
             }
         }
     }
     if (depth == start) {
-        return [meilleurCoup,meilleurScore];
+        return [meilleurCoup, meilleurScore];
     } else {
         return meilleurScore;
     }
