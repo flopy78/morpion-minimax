@@ -15,7 +15,7 @@ def coupsPossibles(game):
     for y in range(3):
         for x in range(3):
             if game[y][x] is None:
-                yield (x,y)
+                coups.append((x,y))#yield (x,y)
     return coups
 
 def getWinner(game):
