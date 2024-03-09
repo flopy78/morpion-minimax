@@ -5,8 +5,6 @@ game = [[null,null,null],
 role = "x";
 enemy = "o";
 
- 
-
 ncoups = 0;
 
 
@@ -21,6 +19,8 @@ function coupsPossibles(game) {
     }
     return coups;
  }
+
+
 function getWinner(game) {
     for (let i = 0 ; i < 3 ; i++) {
         if (game[i][0] == game[i][1] == game[i][2]) {
@@ -34,7 +34,8 @@ function getWinner(game) {
         }
     }
 }
-    
+
+
 function evaluate(game) {
     winner = getWinner(game)
 
@@ -46,6 +47,8 @@ function evaluate(game) {
         return 0;
     }
 }
+
+
 function minimax(depth,start = null) {
     ncoups ++;
     if (start == null) start = depth;
