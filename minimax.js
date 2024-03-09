@@ -1,23 +1,25 @@
-game = [[null,null,null],[null,null,null],[null,null,null]]
+game = [[null,null,null],
+        [null,null,null],
+        [null,null,null]];
 
-role = "x"
-enemy = "o"
+role = "x";
+enemy = "o";
 
  
 
-ncoups = 0
+ncoups = 0;
 
 
 function coupsPossibles(game) {
-    coups = []
+    coups = [];
     for (let y = 0 ; y < 3 ; y++){
         for (let x = 0 ; x < 3 ; x++){
             if (game[y][x] == null) {
-                coups.push([x,y])
+                coups.push([x,y]);
             }
         }
     }
-    return coups
+    return coups;
  }
 function getWinner(game) {
     for (let i = 0 ; i < 3 ; i++) {
@@ -28,7 +30,7 @@ function getWinner(game) {
         } else if (game[0][0] == game[1][1] == game[2][2] || game[0][2] == game[1][1] == game[2][0]) {
             return game[1][1];
         } else {
-            return null
+            return null;
         }
     }
 }
@@ -54,7 +56,7 @@ function minimax(depth,start = null) {
     joueur = ["o","x"][depth%2];
 
     if (joueur == role) {
-        meilleurCoup = null
+        meilleurCoup = null;
         meilleurScore = -Infinity;
 
         for ([x,y] of coupsPossibles(game)) {
@@ -66,13 +68,13 @@ function minimax(depth,start = null) {
 
             if (score > meilleurScore) {
                 meilleurScore = score;
-                meilleurCoup = (x,y);
+                meilleurCoup = [x,y];
             }
         }
 
     } else {
-        meilleurCoup = null
-        meilleurScore = Infinity
+        meilleurCoup = null;
+        meilleurScore = Infinity;
 
         for ([x,y] of coupsPossibles(game)) {
             game[y][x] = joueur;
@@ -82,17 +84,17 @@ function minimax(depth,start = null) {
             game[y][x] = null;
 
             if (score < meilleurScore) {
-                meilleurScore = score
-                meilleurCoup = (x,y)
+                meilleurScore = score;
+                meilleurCoup = [x,y];
             }
         }
     }
     if (depth == start) {
-        return [meilleurCoup,meilleurScore]
+        return [meilleurCoup,meilleurScore];
     } else {
-        return meilleurScore
+        return meilleurScore;
     }
 }
 
-console.log(minimax(9))
-console.log(ncoups,"coups")
+console.log(minimax(9));
+console.log(ncoups,"coups");
