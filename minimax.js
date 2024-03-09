@@ -23,11 +23,11 @@ function coupsPossibles(game) {
 
 function getWinner(game) {
     for (let i = 0 ; i < 3 ; i++) {
-        if (game[i][0] == game[i][1] == game[i][2]) {
+        if (game[i][0] == game[i][1] && game[i][1] == game[i][2]) {
             return game[i][1];
-        } else if (game[0][i] == game[1][i] == game[2][i]) {
+        } else if (game[0][i] == game[1][i] && game[1][i] == game[2][i]) {
             return game[1][i];
-        } else if (game[0][0] == game[1][1] == game[2][2] || game[0][2] == game[1][1] == game[2][0]) {
+        } else if ((game[0][0] == game[1][1] && game[1][1] == game[2][2]) || (game[0][2] == game[1][1] && game[1][1] == game[2][0])) {
             return game[1][1];
         } else {
             return null;
