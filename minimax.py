@@ -1,7 +1,9 @@
 import math
 import time
 
-game = [[None,None,None],[None,None,None],[None,None,None]]
+game = [[None,None,None],
+        [None,None,None],
+        [None,None,None]]
 
 role = "x"
 enemy = "o"
