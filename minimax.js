@@ -49,24 +49,24 @@ function minimax(depth,start = null) {
     if (start == null) start = depth;
 
     if (depth == 0 || coupsPossibles(game).length == 0) {
-        return evaluate(game)
+        return evaluate(game);
     }
-    joueur = ["o","x"][depth%2]
+    joueur = ["o","x"][depth%2];
 
     if (joueur == role) {
         meilleurCoup = null
-        meilleurScore = -Infinity
+        meilleurScore = -Infinity;
 
         for ([x,y] of coupsPossibles(game)) {
-            game[y][x] = joueur
+            game[y][x] = joueur;
 
             score = minimax(depth - 1,start)
 
-            game[y][x] = null
+            game[y][x] = null;
 
             if (score > meilleurScore) {
-                meilleurScore = score
-                meilleurCoup = (x,y)
+                meilleurScore = score;
+                meilleurCoup = (x,y);
             }
         }
 
@@ -75,14 +75,11 @@ function minimax(depth,start = null) {
         meilleurScore = Infinity
 
         for ([x,y] of coupsPossibles(game)) {
-            game[y][x] = joueur
-            for (ligne of game) {
-                console.log(ligne)
-            }
+            game[y][x] = joueur;
 
             score = minimax(depth - 1,start)
 
-            game[y][x] = null
+            game[y][x] = null;
 
             if (score < meilleurScore) {
                 meilleurScore = score
