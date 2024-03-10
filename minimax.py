@@ -1,9 +1,7 @@
 import math
 import time
 
-game = [[None,None,None],
-        [None,None,None],
-        [None,None,None]]
+game = [[None,None,None],[None,None,None],[None,None,None]]
 
 role = "x"
 enemy = "o"
@@ -17,7 +15,7 @@ def coupsPossibles(game):
     for y in range(3):
         for x in range(3):
             if game[y][x] is None:
-                coups.append((x,y))#yield (x,y)
+                yield (x,y)
     return coups
 
 def getWinner(game):
@@ -26,10 +24,10 @@ def getWinner(game):
             return game[i][1]
         elif (game[0][i] == game[1][i] == game[2][i]):
             return game[1][i]
-        elif (game[0][0] == game[1][1] == game[2][2] or game[0][2] == game[1][1] == game[2][0]):
-            return game[1][1]
-        else:
-            return None
+    if (game[0][0] == game[1][1] == game[2][2] or game[0][2] == game[1][1] == game[2][0]):
+        return game[1][1]
+    else:
+        return None
     
 def evaluate(game):
     winner = getWinner(game)
@@ -41,12 +39,12 @@ def evaluate(game):
     else:
         return 0
     
-def minimax(depth,start = None):#,a = -math.inf,b = math.inf):
+def minimax(depth,start = None,a = -math.inf,b = math.inf):
     global coups
     coups += 1
     if start is None: start = depth
 
-    if depth == 0 or not coupsPossibles(game):
+    if depth == 0 or not coupsPossibles(game) or getWinner(game) != None:
         return evaluate(game)
 
     joueur = ("o","x")[depth%2]
@@ -58,17 +56,17 @@ def minimax(depth,start = None):#,a = -math.inf,b = math.inf):
         for x,y in coupsPossibles(game):
             game[y][x] = joueur
 
-            score = minimax(depth - 1,start)#,a,b)
+            score = minimax(depth - 1,start,a,b)
 
             game[y][x] = None
 
             if score > meilleurScore:
                 meilleurScore = score
                 meilleurCoup = (x,y)
-                '''if score > a:
+                if score > a:
                     a = score
                     if a >= b:
-                        break'''
+                        break
 
     else:
         meilleurCoup = None
@@ -77,17 +75,17 @@ def minimax(depth,start = None):#,a = -math.inf,b = math.inf):
         for x,y in coupsPossibles(game):
             game[y][x] = joueur
 
-            score = minimax(depth - 1,start)#,a,b)
+            score = minimax(depth - 1,start,a,b)
 
             game[y][x] = None
 
             if score < meilleurScore:
                 meilleurScore = score
                 meilleurCoup = (x,y)
-                '''if score < b:
+                if score < b:
                     b = score
                     if b <= a:
-                        break'''
+                        break
     if depth == start:
         return (meilleurCoup,meilleurScore)
     else:
